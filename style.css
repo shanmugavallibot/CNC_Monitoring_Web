@@ -1,0 +1,424 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    min-height: 100vh;
+    background:#fdfcfd;
+    color: #595959;
+    padding:15px;
+}
+
+.header{
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.header h1{
+    color: #595959;
+}
+
+.dashboard{
+    display:grid;
+    grid-template-columns:repeat(4,300px);
+    grid-template-rows: 100px,200px,100px,200px;
+    gap:10px;
+    padding:15px;
+}
+.box1{
+    grid-area:2/1/3/2;
+}
+.box2{
+    grid-area:2/2/3/2;
+}
+
+.box3{
+    grid-area:1/1/1/5;
+    transition: background-color 0.4s ease;
+}
+
+/* Normal state */
+.box3.normal{
+    background-color: #595959;   /* Your dashboard blue */
+    border: 2px solid #8458b3;
+}
+
+/* Emergency state */
+.box3.emergency{
+    background-color: #dc3545;   /* Red */
+    border: 2px solid #8b0000;
+}
+
+.emergency-text{
+    margin-top: 35px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+}
+
+.box4{
+    grid-area:2/3/3/5;
+}
+.box5{
+    grid-area:3/1/5/3;
+}
+.box6{
+    grid-area:3/3/4/5;
+}
+.box7{
+    grid-area:7/1/8/2;
+}
+.box8{
+    grid-area:4/3/5/5;
+}
+.box9{
+    grid-area:5/1/7/3;
+}
+.box10{
+    grid-area:5/3/7/5;
+}
+.box11{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.worker-status{
+    width:160px;
+    height:60px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:10px;
+    color:white;
+    font-size:22px;
+    font-weight:bold;
+    background:gray;
+}
+
+.card{
+    background:#595959;
+    border:2px solid #8458b3;
+    border-radius:10px;
+    padding:15px;
+}
+
+.card h3{
+    text-align:center;
+    margin-bottom:15px;
+    color: #a0d2eb;;
+}
+.card h4{
+    text-align:left;
+    font-size:20px;
+    margin-bottom:15px;
+    color: #a0d2eb;
+}
+.performance{
+    width:180px;
+    height:90px;
+    position:relative;
+    margin:auto;
+    overflow:visible;
+}
+
+.gauge-body{
+    position:relative;
+    width:180px;
+    height:90px;
+    overflow:hidden;
+    border-radius:180px 180px 0 0;
+
+    background:conic-gradient(
+        from 180deg,
+        limegreen 0deg 120deg,
+        yellow 120deg 240deg,
+        red 240deg 359deg,
+        transparent 359deg 360deg
+    );
+}
+
+.gauge-center{
+    position:absolute;
+    width:120px;
+    height:120px;
+    background:white;
+    border-radius:50%;
+    left:50%;
+    top:30px;
+    transform:translateX(-50%);
+    z-index:2;
+}
+
+/* Needle */
+.needle{
+    position:relative;
+    width:4px;
+    height:70px;
+    background:#222;
+    left:50%;
+    bottom:0;
+    transform-origin:bottom center;
+
+    /* Change angle here */
+    transform:translateX(-50%) rotate(45deg);
+
+    border-radius:3px;
+    z-index:999;
+}
+
+/* Needle center */
+.needle::after{
+    content:"";
+    position:absolute;
+    width:12px;
+    height:12px;
+    background:#222;
+    border-radius:50%;
+    bottom:-6px;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+/* Percentage */
+.speed-value{
+    position:absolute;
+    left:50%;
+    top:58px;
+    transform:translateX(-50%);
+    font-size:20px;
+    font-weight:bold;
+    z-index:4;
+}
+
+.status{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.status div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+}
+
+/* Indicator lights */
+.green,
+.yellow,
+.red{
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    margin-bottom: 8px;
+    border: 2px solid #fff;
+}
+
+.green{
+    background: #16a34a;
+}
+
+.yellow{
+    background: #eab308;
+}
+
+.red{
+    background: #dc2626;
+}
+
+.gauge-row{
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+}
+
+.gauge{
+    position:relative;
+    width:120px;
+    height:60px;
+    overflow:hidden;
+}
+
+.gauge::before{
+    content:"";
+    position:absolute;
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:
+    conic-gradient(
+        from 180deg,
+        #2e405a 0deg 360deg,
+        #facc15 120deg 180deg,
+        #ef4444 180deg 270deg,
+        #3a3a3a 270deg 360deg
+    );
+}
+
+.gauge::after{
+    content:"";
+    position:absolute;
+    bottom:0;
+    left:50%;
+    width:4px;
+    height:42px;
+    background:#111;
+    transform-origin:bottom center;
+
+    /* Change this angle to move the needle */
+    transform:translateX(-50%) rotate(45deg);
+
+    border-radius:3px;
+    z-index:4;
+}
+
+.gauge .center-dot{
+    position:absolute;
+    width:12px;
+    height:12px;
+    background:#111;
+    border-radius:50%;
+    left:50%;
+    bottom:0;
+    transform:translate(-50%,50%);
+    z-index:5;
+}
+
+.gauge span{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-10%);
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:#f3f3f3;
+
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+
+    font-size:18px;
+    font-weight:bold;
+    z-index:3;
+}
+
+.kpi{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.kpi div{
+    background:#2e405a;
+    padding:15px;
+    border-radius:8px;
+    text-align:center;
+    color:#a0d2eb
+}
+
+.time-line{
+    display:flex;
+    justify-content:space-between;
+    margin:15px 0;
+}
+
+.progress-container{
+    width:100%;
+    height:25px;
+    background:#455670;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-container{
+    width:100%;
+    height:20px;
+    display:flex;
+    border:1px solid #ccc;
+    border-radius:0;      /* Sharp corners */
+    overflow:hidden;
+}
+
+/* Working */
+.progress-working{
+    height:100%;
+    background:#22c55e;
+}
+
+/* Idle */
+.progress-idle{
+    height:100%;
+    background:#facc15;
+}
+
+/* Machine Stop */
+.progress-stop{
+    height:100%;
+    background:#ef4444;
+}
+
+.axis{
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    font-size:25px;
+    color:#22c55e;
+}
+
+.status-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.status-table td{
+    border:1px solid #475569;
+    padding:12px;
+}
+
+.coolant-status{
+    width:170px;
+    height:60px;
+    margin:20px auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:10px;
+    font-size:22px;
+    font-weight:bold;
+    color:white;
+    background:gray; /* Default */
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td,tr{
+    border:1px solid #1451a7;
+    padding:8px;
+    text-align:center;
+    color:#a0d2eb;
+}
+
+.footer{
+    text-align:right;
+    margin-top:15px;
+    color:#051833;
+}
+
+@media(max-width:1000px){
+    .dashboard{
+        grid-template-columns:1fr;
+    }
+}

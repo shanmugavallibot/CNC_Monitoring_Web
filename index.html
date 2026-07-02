@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CNC Lathe Machine Monitor</title>
+
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>CNC Lathe Machine Monitor</h1>
+    <h2>Machine</h2>
+</div>
+
+<div class="dashboard">
+
+    <!-- Overall Performance -->
+    <div class="card box1">
+        <h3>Overall Performance</h3>
+        <div class="performance">
+            <div class="gauge-body">
+                <div class="needle" style="--rotation:90deg;"></div>
+                <div class="gauge-center"></div>
+                <div class="speed-value" style="color:black;">75%</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Machine Status -->
+    <div class="card box2">
+        <h3>Machine Status</h3>
+
+       <div class="status">
+    <div>
+        <span class="green"></span>
+        Active
+    </div>
+
+    <div>
+        <span class="yellow"></span>
+        Idle
+    </div>
+
+    <div>
+        <span class="red"></span>
+        Stopped
+    </div>
+    </div>
+    </div>
+
+    <!-- Emergency -->
+    <div id="emergencyCard" class="card box3 normal">
+    <h3>Emergency Status</h3>
+
+    <div id="emergencyText" class="emergency-text">
+        Normal
+    </div>
+    </div>   
+
+    <!-- Spindle -->
+    <div class="card box4">
+    <h3>Spindle and Motor</h3>
+
+    <div class="gauge-row">
+
+        <div>
+            <div class="gauge">
+                <span id="rpmValue">1000</span>
+            </div>
+            <center>RPM</center>
+        </div>
+
+        <div>
+            <div class="gauge">
+                <span id="currentValue">10A</span>
+            </div>
+            <center>Current</center>
+        </div>
+
+        <div>
+            <div class="gauge">
+                <span id="tempValue">70°C</span>
+            </div>
+            <center>Temp</center>
+        </div>
+
+    </div>
+    </div>
+
+    <!-- Production -->
+    <div class="card box5">
+        <h4>M1-CNN-450 <br> Prog A</h4>
+        <br>
+
+        <div class="kpi">
+            <div>
+                Production Time<br><b>7 hr</b>
+            </div>
+
+            <div>
+                Ideal Time<br><b>1 hr</b>
+            </div>
+
+            <div>
+                Production Parts<br><b>120</b>
+            </div>
+
+            <div>
+                Good Parts<br><b>116</b>
+            </div>
+        </div>
+
+        <br><br>
+
+        <div class="progress-container">
+
+        <!-- Working Time -->
+        <div class="progress-working" style="width:60%;"></div>
+
+        <!-- Idle Time -->
+        <div class="progress-idle" style="width:20%;"></div>
+
+        <!-- Not Working -->
+        <div class="progress-stop" style="width:20%;"></div>
+
+        </div>
+
+        <div class="time-line" style="color:#a0d2eb;">
+            <span>9:00<br><b>27-06-26</b></span>
+            <span>11:00<br><b>27-06-26</b></span>
+            <span>1:00<br><b>27-06-26</b></span>
+            <span>3:00<br><b>27-06-26</b></span>
+            <span>5:00<br><b>27-06-26</b></span>
+        </div>
+
+    </div>
+
+    <!-- Power -->
+    <div class="card box6">
+        <h3>Power Consumption</h3>
+        <canvas id="powerChart"></canvas>
+    </div>
+
+   <!-- Coolant -->
+    <div class="card box7">
+    <h3>Coolant Level</h3>
+
+    <div id="coolantStatus" class="coolant-status">
+        Loading...
+    </div>
+    </div>
+
+    <!-- Axis -->
+    <div class="card box8">
+        <h3>Axis Tool Position</h3>
+
+        <div class="axis">
+            X = 0.9 
+            Y = 1.0 
+            Z = 3.6
+        </div>
+    </div>
+
+    <!-- Production Status -->
+    <div class="card box9">
+        <h3>Production Status</h3>
+
+        <table class="status-table">
+            <tr>
+                <td>Program No</td>
+                <td>#1</td>
+            </tr>
+
+            <tr>
+                <td>Parts Completed</td>
+                <td>3 / 10</td>
+            </tr>
+
+            <tr>
+                <td>Tool Running</td>
+                <td>Phasing Tool</td>
+            </tr>
+
+            <tr>
+                <td>Tool Breakage</td>
+                <td>Turning Tool</td>
+            </tr>
+        </table>
+
+    </div>
+
+    <!-- Tool Life -->
+    <div class="card box10">
+        <h3>Tool Life</h3>
+
+        <table>
+            <tr>
+                <th>S.No</th>
+                <th>Tool Name</th>
+                <th>Max Runtime</th>
+                <th>Replacement</th>
+            </tr>
+
+            <tr>
+                <td>1</td>
+                <td>Turning Tool</td>
+                <td>300 hr</td>
+                <td>150 hr</td>
+            </tr>
+
+            <tr>
+                <td>2</td>
+                <td>Phasing Tool</td>
+                <td>200 hr</td>
+                <td>100 hr</td>
+            </tr>
+
+            <tr>
+                <td>3</td>
+                <td>Parting Tool</td>
+                <td>300 hr</td>
+                <td>150 hr</td>
+            </tr>
+
+            <tr>
+                <td>4</td>
+                <td>Thread Cutting Tool</td>
+                <td>200 hr</td>
+                <td>100 hr</td>
+            </tr>
+
+            <tr>
+                <td>5</td>
+                <td>Boring Tool</td>
+                <td>300 hr</td>
+                <td>150 hr</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+    <div class="card box11">
+    <h3>Worker P/A</h3>
+
+    <div id="workerStatus" class="worker-status">
+        Loading...
+    </div>
+</div>
+</div>
+
+<div class="footer">
+    CNC Dashboard © 2026
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- MQTT Library -->
+<script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+
+<!-- Your JavaScript -->
+<script src="script.js"></script>
+
+</body>
+</html>
